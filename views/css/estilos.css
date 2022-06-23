@@ -1,0 +1,240 @@
+*{
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+	font-family: Poppins-Regular, sans-serif;
+}
+
+
+input {
+	outline: none;
+	border: none;
+}
+
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+#cliente{
+    width: 250px;
+}
+
+/*-- contenedor del Login--*/
+
+.container-mod {
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: -webkit-linear-gradient(to right, #057ada,#057ada);
+  background: linear-gradient(to right, #057ada,#057ada);
+}
+
+.container{
+    margin: 40px;
+ 
+    
+}
+
+
+.wrap-registro {
+  width: 500px;
+  background: #eceff1;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 77px 55px 53px 55px;
+  
+ 
+
+}
+
+#btncomprar{
+    width: 250px;
+   background: rgb(25, 182, 49);
+   height: 50px;
+   border-radius: 10px;
+   color: #eceff1;
+   font-weight:900;
+  
+   margin-left: 750px;
+ 
+}
+
+.wrap-registro-producto {
+    width: 500px;
+    background: #b4ddf9;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 77px 55px 53px 55px;
+ 
+    
+   
+  
+  }
+  
+
+#cancelar{
+  margin-top: 8px;
+
+  background: #333333;
+  color: white;
+    }
+/*----Formulario de user y password----*/
+
+.form {
+  width: 100%;
+  
+}
+#mensaje{
+   margin-top: -80px;
+}
+.form-title {
+  display: block;
+  font-family: Poppins-Bold;
+  font-size: 40px;
+  color: #333333;
+  margin-top: -50px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.wrap-login {
+    width: 400px;
+    background: #eceff1;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 77px 55px 53px 55px;
+    
+   
+  
+  }
+
+  
+.wrap-input100 {
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin-bottom: 37px;
+  }
+  
+  .input100 {
+    font-family: Poppins-Regular;
+    font-size: 15px;
+    color: #555555;
+    line-height: 1.2;
+  
+    display: block;
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    padding: 0 5px;
+  }
+  
+
+
+.input100:focus + .focus-efecto::after {
+  top: -15px;
+}
+
+.input100:focus + .focus-efecto::before {
+  width: 100%;
+}
+
+.has-val.input100 + .focus-efecto::after {
+  top: -15px;
+}
+
+.has-val.input100 + .focus-efecto::before {
+  width: 100%;
+}
+
+/*---------------------------------------------*/
+
+
+/*------------------------------------------------------------------
+[ Button ]*/
+.container-login-form-btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 13px;
+}
+
+.wrap-login-form-btn {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border-radius: 40px 5px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.login-form-bgbtn {
+  position: absolute;
+  z-index: -1;
+  width: 300%;
+  height: 100%;
+  background:  #09cdf0;
+ background: -webkit-linear-gradient(right, #1609c5, #0a7cbe, #0a7cbe, #170cac);
+  background: -o-linear-gradient(right, #1609c5,#0a7cbe, #0a7cbe, #170cac);
+  background: -moz-linear-gradient(right,#1609c5, #0a7cbe, #0a7cbe,#170cac);
+  background: linear-gradient(right, #1609c5, #0a7cbe, #0a7cbe,#170cac);
+  top: 0;
+  left: -100%;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.login-form-btn {
+  font-family: Poppins-Medium;
+  font-size: 20px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  height: 50px;
+}
+
+.wrap-login-form-btn:hover .login-form-bgbtn {
+  left: 0;
+}
+
+
+/*--- Para dispositivos small responsive ---*/
+
+@media (max-width: 576px) {
+  .wrap-login {
+    padding: 77px 15px 33px 15px;
+  }
+}
