@@ -1,6 +1,4 @@
 
-console.log('re')
-
 $(document).ready(function () {
     var productosCompra = new Array();
     var ref = $("#idProducto")
@@ -126,16 +124,23 @@ $(document).ready(function () {
         var cc = $('#cc').val();
 
         if (cc != "" && filasTabla > 1) {
-            console.log("Enviando datos");
+
             llenarArrayProductos();
             $.post("../../controllers/producto.php?op=setProductos", { productos: productosCompra, fecha: fecha, cliente: cc }, function (data) {
 
                 $('#formRegistro').trigger("reset");
-
-
                 $('#mensajeU').html("");
 
-                if (data.length > 0) {
+                data = JSON.parse(data);
+
+                if (data === "Usuario_NO") {
+
+                    swal({
+                        title: "Usuario no existe!",
+                        icon: "error",
+
+                    });
+                } else {
                     swal({
                         title: "Compra registrada!",
                         icon: "success",
@@ -143,7 +148,6 @@ $(document).ready(function () {
                     }).then(() => {
                         location.reload();
                     });
-
                 }
             });
         } else {
