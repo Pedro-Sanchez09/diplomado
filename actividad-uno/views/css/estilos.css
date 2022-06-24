@@ -61,6 +61,15 @@ button:hover {
  
 
 }
+h1{
+  text-align: center;
+  color: #09cdf0;
+}
+.total{
+  
+  width: 100px;
+ 
+}
 
 #btncomprar{
     width: 250px;

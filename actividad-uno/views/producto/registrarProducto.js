@@ -22,11 +22,6 @@ $(document).ready(function () {
 
         }
 
-
-
-
-
-
     });
 
     ref.blur(() => getProductoById());
@@ -132,23 +127,23 @@ $(document).ready(function () {
                 $('#mensajeU').html("");
 
                 data = JSON.parse(data);
-
-                if (data === "Usuario_NO") {
-
-                    swal({
-                        title: "Usuario no existe!",
-                        icon: "error",
-
-                    });
-                } else {
-                    swal({
-                        title: "Compra registrada!",
-                        icon: "success",
-
-                    }).then(() => {
-                        location.reload();
-                    });
-                }
+                console.log('res', data);
+                 if (data.STATUS == 'ERROR') {
+ 
+                     swal({
+                         title: "Cliente no existe!",
+                         icon: "error",
+ 
+                     });
+                 } else {
+                     swal({
+                         title: "Compra registrada!",
+                         icon: "success",
+ 
+                     }).then(() => {
+                         location.reload();
+                     });
+                 }
             });
         } else {
             $('#mensajeU').html("<span style='color:red;'>Llenar campo cliente o agregar productos</span>");

@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+ if ( !isset( $_SESSION['usuario'] ) ) {
+    header("location: ../../index.html");
+  } 
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,7 +77,7 @@
                     <div class="col-lg-6">
 
                         <label for="precio" class="col-form-label ">Precio:</label>
-                        <input type="precio" class="form-control" id="precio" name="precio" disabled>
+                        <input type="text" class="form-control" id="precio" name="precio" disabled>
                     </div>
 
                 </div>

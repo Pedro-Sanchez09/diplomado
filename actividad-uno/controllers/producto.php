@@ -13,12 +13,37 @@ $respuesta;
 
 switch ($_GET["op"]) {
 
+    case 'getProductos':
+        $respuesta = $producto->getProductos();
+        echo json_encode($respuesta);
+        break;
+    case 'agregarCarrito':
+        $carr = $_POST['carrito'];
+        $respuesta = array('carrito' => $carr[0]);
+        session_start();
+        $_SESSION['carrito'] = $respuesta;
+
+        echo json_encode($respuesta);
+
+        break;
+
+    case 'getCarrito':
+        session_start();
+        if (isset($_SESSION['carrito'])) {
+            $respuesta = array('STATUS' => 'OK', 'DATA' => $_SESSION['carrito']);
+        } else {
+            $respuesta = array('STATUS' => 'ERROR');
+        }
+        echo json_encode($respuesta);
+
+        break;
+
     case 'getProducto':
         $id = $_POST['id'];
 
-        $res = $producto->getProducto($id);
+        $respuesta = $producto->getProducto($id);
 
-        echo json_encode($res);
+        echo json_encode($respuesta);
 
         break;
     case 'setProductos';
@@ -27,7 +52,7 @@ switch ($_GET["op"]) {
         $buscarC = $cliente->getCliente($cc);
 
         if (sizeof($buscarC['DATA']) == 0) {
-            $respuesta = json_encode('Usuario_NO');
+            $respuesta = array('STATUS' => 'ERROR', 'Mensage' => 'Cliente no existe en el sistema!');
         } else {
 
             $fecha = $_POST['fecha'];
@@ -35,7 +60,7 @@ switch ($_GET["op"]) {
             $cantidad = 0;
             $idProducto = 0;
             $importe = 0;
-            $respuesta = json_encode($compra->guardarCompra($fecha, $cc));
+            $respuesta = $compra->guardarCompra($fecha, $cc);
             $lastIdCompra = mysqli_insert_id($conexion->getConnection());
 
             for ($i = 0; $i < sizeof($datos); $i++) {
@@ -47,7 +72,7 @@ switch ($_GET["op"]) {
             }
         }
 
-        echo $respuesta;
+        echo json_encode($respuesta);
 
 
 
