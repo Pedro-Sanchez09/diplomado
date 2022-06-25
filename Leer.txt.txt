@@ -1,0 +1,11 @@
+Para ver el crud de productos:
+Usuario: Admin
+Pass: Admin09
+
+Para Vender producto como un vendedor:
+Usurio: Maria
+Pass: MariaV
+
+Para comrar productos como cliente directaente.
+Usuario: Andres
+Pass : Andres
