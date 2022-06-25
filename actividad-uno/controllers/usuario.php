@@ -1,6 +1,5 @@
 <?php
 
-
 require_once("../models/Cliente.php");
 
 
@@ -13,7 +12,7 @@ switch ($_GET["op"]) {
     case 'getSession':
         session_start();
         if (isset($_SESSION['usuario'])) {
-            $respuesta=array('usuario'=>$_SESSION['usuario'],'usuario_id'=>$_SESSION['usuario_id']);
+            $respuesta = array('usuario' => $_SESSION['usuario'], 'usuario_id' => $_SESSION['usuario_id']);
             echo json_encode($respuesta);
         } else {
             echo json_encode('No hay session: usuario');
@@ -21,6 +20,8 @@ switch ($_GET["op"]) {
         break;
 
     case 'validLogin':
+
+
 
         $user = $_POST['user'];
         $pass = $_POST['pass'];

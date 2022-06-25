@@ -47,14 +47,14 @@ $(document).ready(function () {
 
     });
 
-    //Editar        
+
     $(document).on("click", ".btnAgregarC", function () {
         $('#cantidad').val('1');
         fila = $(this).closest("tr");
         idProducto = parseInt(fila.find('td:eq(0)').text()); //capturo el ID
         descripcion = (fila.find('td:eq(1)').text());
         precio = parseInt(fila.find('td:eq(2)').text());
-        console.log('id pr', idProducto);
+
 
         $(".modal-title").text("Agregar producto al carrito");
         $('#modalProducto').modal('show');
@@ -64,7 +64,7 @@ $(document).ready(function () {
     });
 
     $('#btnVerCarrito').click(() => {
-        console.log('ver');
+
         window.location.href = "./carrito.php";
     })
 
@@ -74,8 +74,8 @@ $(document).ready(function () {
         if (productos.length > 0) {
 
             for (var i = 0; i < productos.length; i++) {
-                console.log('id', productos[i][i].id);
-                if (productos[i][i].id == id) {
+
+                if (productos[i].id == id) {
                     encontrado = true;
                 }
             }
@@ -92,7 +92,9 @@ $(document).ready(function () {
     $('#formCantidad').submit(async function (e) {
         e.preventDefault(); //evita el comportambiento normal del submit, es decir, recarga total de la página
         var cantidad = parseInt($('#cantidad').val());
-
+        if (cantidad < 1) {
+            cantidad = 1;
+        }
         var importe = cantidad * parseInt(precio);
         carrito = JSON.parse(await getCarrito());
 
@@ -139,14 +141,6 @@ $(document).ready(function () {
             });
         }
 
-
-
-
     });
-
-
-
-
-
 
 });

@@ -8,10 +8,10 @@ if (!isset($_SESSION['usuario'])) {
 } else {
  
 
-    if ($_SESSION['rol'] != 'CLIENTE') {
+    if ($_SESSION['rol'] != 'ADMIN') {
         switch ($_SESSION['rol']) {
-            case "ADMIN":
-                header("location: ../admin/");
+            case "CLIENTE":
+                header("location: ../contenido/index-cliente.php");
                 break;
 
             case "VENDEDOR":
@@ -29,45 +29,41 @@ if (!isset($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contenido</title>
+    <title>Productos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
     <link rel="stylesheet" href="../css/estilos.css">
 </head>
 
 <body>
-    <header>
- 
-    </header>
+
     <div class="container">
-        
-    
-      
-       
-        <a href="./index-cliente.php">Inicio</a> 
-        <a id="salir" href="./salir.php">Salir</a>
+
+
+
+        <a id="salir" href="../contenido/salir.php">Salir</a>
         <br>
         <br>
         <div class="row">
             <div class="col-lg-12">
-                <button id="btnComprar" type="button" class="btn btn-primary" data-toggle="modal">Realizar compra</button>
+                <button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal">Agregar producto</button>
             </div>
         </div>
         <br>
-        <h1>Productos en carrito</h1>
+
+
+        <h1>Lista de productos</h1>
         <div class="row">
 
             <div class="col-lg-12">
                 <div class="table-responsive">
-                    <table id="tablaProductosC" class="table table-striped table-bordered table-condensed">
+                    <table id="tablaProductos" class="table table-striped table-bordered table-condensed">
                         <thead class="text-center">
                             <tr>
                                 <th>Id</th>
                                 <th>Descripcion</th>
                                 <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Importe</th>
+
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -76,24 +72,21 @@ if (!isset($_SESSION['usuario'])) {
                     </table>
                 </div>
             </div>
+
         </div>
 
-        <div class="total">
-            <label for="base" class="col-form-label ">Base:</label>
-            <input type="number" class="form-control" id="base" name="base" value="0" disabled>
-            <label for="IVA" class="col-form-label ">IVA:</label>
-            <input type="text" class="form-control" id="IVA" name="IVA" value="19%" disabled>
-            <label for="total" class="col-form-label ">Total:</label>
-            <input type="number" class="form-control" id="total" name="total" value="0" disabled>
-        </div>
-        <?php require_once('./modal-cantidad.php'); ?>
+        <?php require_once('./modal-producto.php'); ?>
     </div>
 
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="./carrito.js"></script>
+    <script src="./index.js"></script>
+
 </body>
 
 </html>

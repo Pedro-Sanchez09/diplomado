@@ -71,8 +71,7 @@ $(document).ready(function () {
 
 
 
-
-        if ((verificar.password == undefined) && (verificar.usuario == undefined)) {
+        if (verificar.length == 0 || verificar.length == undefined) {
 
 
             $.ajax({
@@ -85,7 +84,7 @@ $(document).ready(function () {
 
 
                     datos = JSON.parse(datos);
-                    console.log("Res", datos);
+
                     if (datos.STATUS == 'OK') {
 
                         swal({
@@ -98,12 +97,12 @@ $(document).ready(function () {
 
                         });
 
-                    }else{
+                    } else {
                         swal({
                             title: 'Cliente existe',
                             icon: 'error',
-                            text:'La cédula ingresada ya se encuentra en el sistema!'
-                        }) 
+                            text: 'La cédula ingresada ya se encuentra en el sistema!'
+                        })
                     }
 
                 }

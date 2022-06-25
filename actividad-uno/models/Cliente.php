@@ -15,10 +15,11 @@ class Cliente
         $sql = "SELECT `usuarios`.rol FROM clientes
         INNER join usuarios
         ON usuarios.usuario=clientes.usuario 
-        where  clientes.cedula='$id' and  usuarios.rol='CLIENTE'";
+        where  clientes.cedula='$id' ";
         $resB = $this->conexion->get_data($sql);
         return $resB;
     }
+    
 
     public function validarCliente($user, $pass)
     {

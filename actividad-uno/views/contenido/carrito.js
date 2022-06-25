@@ -1,12 +1,13 @@
 $(document).ready(function () {
     var fila;
     var idProducto;
-    var descripcion;
+
     var precio;
     var productosCompra = Array();
     var tablaCarrito;
     var carrito = Array();
     var productos = Array();
+    var productosCarrito = Array();
 
 
 
@@ -19,9 +20,9 @@ $(document).ready(function () {
             carrito.length = 0;
 
             if (data.DATA.carrito != null) {
-                console.log(typeof (data.DATA.carrito));
+
                 data.DATA.carrito.forEach(element => {
-                    console.log(element);
+
                     carrito.push(element);
 
                 });
@@ -111,7 +112,7 @@ $(document).ready(function () {
         var day = d.getDate();
         var year = d.getFullYear();
         fecha = year + "-" + month + "-" + day;
-
+        productosCompra.length = 0;
 
         for (var i = 1; i < filasTabla; i++) {
             var filas = Array();
@@ -135,26 +136,39 @@ $(document).ready(function () {
     }
 
     $('#btnComprar').click(() => {
-        console.log('comprar');
-        llenarArrayProductos();
-        console.log(productosCompra);
 
-        /*  $.get("../../controllers/usuario.php?op=getSession", function (data) {
-              console.log(data);
-          });*/
-    })
+        llenarArrayProductos();
+        console.log(productosCompra)
+
+
+        $.post("../../controllers/cliente.php?op=comprar", { productos: productosCompra, fecha: fecha}, function (data) {
+            console.log('res', data);
+
+            data = JSON.parse(data);
+            if(data.STATUS=='OK'){
+                swal({
+                    title: "Comprado!",
+                    icon: "success",
+                    text: "Campra realizada"
+
+                }).then(()=> window.location.href = "./index-cliente.php"); 
+            }
+
+        });
+    });
+
+
+
+
 
 
     $(document).on("click", ".btnBorrar", function () {
         fila = $(this);
         id = parseInt(fila.closest('tr').find('td:eq(0)').text());
 
-
-
-
         swal({
             title: "Elimar producto",
-            text: "Seguro de eliminar producto del carrito!",
+            text: "Seguro de eliminar producto del carrito?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -169,11 +183,10 @@ $(document).ready(function () {
 
                         carrito.splice(buscar, 1);
                         guardarCarrito(carrito);
-                        var productosCarrito = Array();
+
                         productosCarrito.length = 0;
                         productosCarrito.push(productos);
 
-                        console.log(productosCarrito);
 
                         $.post("../../controllers/producto.php?op=agregarCarrito", { carrito: productosCarrito }, function (data) {
                             tablaCarrito.row(fila.parents('tr')).remove().draw();
@@ -189,6 +202,53 @@ $(document).ready(function () {
 
     });
 
+
+
+    $(document).on("click", ".btnEditar", function () {
+        fila = $(this);
+        id = parseInt(fila.closest('tr').find('td:eq(0)').text());
+
+        var buscar = buscarProducto(carrito, id);
+        var cantidad = parseInt(carrito[buscar].cantidad);
+        $(".modal-title").text("Editar cantidad del producto");
+        $('#cantidad').val(cantidad);
+
+        $('#modalProducto').modal('show');
+
+
+    });
+
+
+
+    $('#formCantidad').submit(async function (e) {
+        e.preventDefault();
+        var cantidad = parseInt($('#cantidad').val());
+        if (cantidad < 1) {
+            cantidad = 1;
+        }
+
+
+        let pos = buscarProducto(carrito, id);
+        let precio = carrito[pos].precio;
+        let importe = cantidad * parseInt(precio);
+
+        carrito[pos].cantidad = cantidad;
+        carrito[pos].importe = importe;
+
+
+        productosCarrito.length = 0;
+        productosCarrito.push(carrito);
+
+
+        $.post("../../controllers/producto.php?op=agregarCarrito", { carrito: productosCarrito }, function () {
+            $('#modalProducto').modal('hide');
+            location.reload();
+            asignarTotalPrecio();
+        });
+
+
+
+    });
 
     function guardarCarrito(carrito) {
         productos.length = 0;

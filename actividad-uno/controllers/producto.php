@@ -13,6 +13,12 @@ $respuesta;
 
 switch ($_GET["op"]) {
 
+    case 'getProducto':
+        $id = intval($_GET['id']);
+        $respuesta = $producto->getProducto($id);
+        echo json_encode($respuesta);
+        break;
+
     case 'getProductos':
         $respuesta = $producto->getProductos();
         echo json_encode($respuesta);
@@ -46,7 +52,17 @@ switch ($_GET["op"]) {
         echo json_encode($respuesta);
 
         break;
-    case 'setProductos';
+
+    case 'setProducto':
+        $id = intval($_POST['id']);
+        $precio = floatval($_POST['precio']);
+        $descripcion = $_POST['descripcion'];
+        $respuesta = $producto->setProducto($id, $descripcion, $precio);
+        echo json_encode($respuesta);
+
+        break;
+    case 'setCompra';
+
         $cc = intval($_POST['cliente']);
 
         $buscarC = $cliente->getCliente($cc);
@@ -57,13 +73,14 @@ switch ($_GET["op"]) {
 
             $fecha = $_POST['fecha'];
             $datos = $_POST['productos'];
+            $respuesta = $datos;
             $cantidad = 0;
             $idProducto = 0;
             $importe = 0;
             $respuesta = $compra->guardarCompra($fecha, $cc);
             $lastIdCompra = mysqli_insert_id($conexion->getConnection());
 
-            for ($i = 0; $i < sizeof($datos); $i++) {
+          for ($i = 0; $i < sizeof($datos); $i++) {
 
                 $idProducto = intval($datos[$i][0]);
                 $cantidad = intval($datos[$i][1]);
@@ -76,6 +93,20 @@ switch ($_GET["op"]) {
 
 
 
+        break;
+
+    case 'update':
+        $id = intval($_POST['id']);
+        $precio = floatval($_POST['precio']);
+        $descripcion = $_POST['descripcion'];
+        $respuesta = $producto->updateProducto($id, $descripcion, $precio);
+        echo json_encode($respuesta);
+        break;
+
+    case 'eliminar':
+        $id = intval($_POST['id']);
+        $respuesta = $producto->deleteProducto($id);
+        echo json_encode($respuesta);
         break;
 
 

@@ -2,11 +2,25 @@
 
 session_start();
 
- if ( !isset( $_SESSION['usuario'] ) ) {
-    header("location: ../../index.html");
-  } 
-?>
+if (!isset($_SESSION['usuario'])) {
 
+    header("location: ../../");
+} else {
+ 
+
+    if ($_SESSION['rol'] != 'VENDEDOR') {
+        switch ($_SESSION['rol']) {
+            case "ADMIN":
+                header("location: ../admin/");
+                break;
+
+            case "CLIENTE":
+                header("location: ../contenido/index-cliente.php");
+                break;
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +31,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar compra</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../css/estilos.css">
 </head>
@@ -26,6 +39,10 @@ session_start();
 <body>
 
     <div class="container">
+
+    <a id="salir" href="../contenido/salir.php">Salir</a>
+        <br>
+        <br>
 
         <div class="wrap-registro-producto">
 
@@ -42,13 +59,14 @@ session_start();
 
 
 
-                       
+
                     </div>
 
                     <div class="col-lg-6">
 
                         <label for="referencia" class="col-form-label">Referencia:</label>
                         <input type="number" class="form-control" id="idProducto" name="idProducto" required>
+                        <span id="prod"></span>
 
                     </div>
                 </div>
@@ -94,11 +112,11 @@ session_start();
 
             </form>
 
-           
-            
+
+
         </div>
         <div class="agregar"> <button type="button" id="btncomprar" name="comprar">Comprar Productos</button></div>
-        
+
         <div class="containerT">
 
             <br />

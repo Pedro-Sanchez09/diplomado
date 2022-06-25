@@ -91,6 +91,7 @@ $(document).ready(function () {
         var year = d.getFullYear();
         fecha = year + "-" + month + "-" + day;
 
+        productosCompra.length = 0;
 
         for (var i = 1; i < filasTabla; i++) {
             var filas = Array();
@@ -121,29 +122,31 @@ $(document).ready(function () {
         if (cc != "" && filasTabla > 1) {
 
             llenarArrayProductos();
-            $.post("../../controllers/producto.php?op=setProductos", { productos: productosCompra, fecha: fecha, cliente: cc }, function (data) {
 
-                $('#formRegistro').trigger("reset");
-                $('#mensajeU').html("");
+            $.post("../../controllers/producto.php?op=setCompra", { productos: productosCompra, fecha: fecha, cliente: cc }, function (data) {
+
+
+
 
                 data = JSON.parse(data);
-                console.log('res', data);
-                 if (data.STATUS == 'ERROR') {
- 
-                     swal({
-                         title: "Cliente no existe!",
-                         icon: "error",
- 
-                     });
-                 } else {
-                     swal({
-                         title: "Compra registrada!",
-                         icon: "success",
- 
-                     }).then(() => {
-                         location.reload();
-                     });
-                 }
+
+                if (data.STATUS == 'ERROR') {
+
+                    swal({
+                        title: "Cliente no existe!",
+                        icon: "error",
+
+                    });
+                } else {
+                    $('#formRegistro').trigger("reset");
+                    swal({
+                        title: "Compra registrada!",
+                        icon: "success",
+
+                    }).then(() => {
+                        location.reload();
+                    });
+                }
             });
         } else {
             $('#mensajeU').html("<span style='color:red;'>Llenar campo cliente o agregar productos</span>");
@@ -158,11 +161,14 @@ $(document).ready(function () {
 
     function getProductoById() {
 
-        $.post("../../controllers/producto.php?op=getProducto", { id: ref.val() }, function (data) {
+        $.get("../../controllers/producto.php?op=getProducto", { id: ref.val() }, function (data) {
             data = JSON.parse(data);
             if (data.DATA.length > 0) {
                 $('#descripcion').val(data.DATA[0].descripcion);
                 $('#precio').val(data.DATA[0].precio);
+                $('#prod').html("")
+            } else {
+                $('#prod').html("<span style='color:red;'>Porducto no existe</span>")
             }
 
 
